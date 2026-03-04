@@ -1,6 +1,6 @@
 # n8n-nodes-aptos
 
-> [Velocity BPA Licensing Notice]
+> **[Velocity BPA Licensing Notice]**
 >
 > This n8n node is licensed under the Business Source License 1.1 (BSL 1.1).
 >
@@ -8,252 +8,184 @@
 >
 > For licensing information, visit https://velobpa.com/licensing or contact licensing@velobpa.com.
 
-A comprehensive n8n community node for the Aptos blockchain, providing extensive operations for account management, transactions, transfers, NFTs, staking, governance, and Move smart contracts.
+A comprehensive n8n community node for interacting with the Aptos blockchain network, providing access to 6 core resources with over 20 operations. Query accounts, transactions, blocks, coin balances, events, and ledger information directly from your n8n workflows.
 
-![n8n](https://img.shields.io/badge/n8n-community--node-orange)
-![Aptos](https://img.shields.io/badge/Aptos-blockchain-06B6D4)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
+![n8n Community Node](https://img.shields.io/badge/n8n-Community%20Node-blue)
 ![License](https://img.shields.io/badge/license-BSL--1.1-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
+![Aptos](https://img.shields.io/badge/Aptos-Blockchain-green)
+![REST API](https://img.shields.io/badge/REST-API-orange)
+![Web3](https://img.shields.io/badge/Web3-Compatible-purple)
 
 ## Features
 
-- **Account Management**: Create, derive, and manage Aptos accounts with ED25519 key support
-- **Transactions**: Submit, simulate, and monitor blockchain transactions
-- **Transfers**: Send APT and custom coins with gas estimation
-- **Coin Operations**: Query balances, register coins, and transfer fungible tokens
-- **Block & Ledger**: Access block data, ledger info, and epoch information
-- **Faucet Integration**: Fund test accounts on testnet/devnet
-- **Utility Functions**: Address validation, unit conversion, and health checks
-- **Trigger Node**: Poll for new blocks, balance changes, and transaction confirmations
+- **Account Operations** - Retrieve account information, resources, modules, and transaction history
+- **Transaction Management** - Submit, query, and simulate transactions with detailed metadata
+- **Block Explorer** - Access block data, transaction lists, and blockchain state information
+- **Coin & Token Support** - Query coin balances, activities, and token metadata across accounts
+- **Event Monitoring** - Stream and filter blockchain events with flexible query parameters
+- **Network Information** - Access ledger info, node health, and network configuration data
+- **Multiple Networks** - Support for mainnet, testnet, and devnet endpoints
+- **Error Handling** - Comprehensive error responses with detailed debugging information
 
 ## Installation
 
 ### Community Nodes (Recommended)
 
-1. Open your n8n instance
-2. Go to **Settings** > **Community Nodes**
-3. Select **Install**
-4. Enter `n8n-nodes-aptos` and agree to the risks
-5. Select **Install**
+1. Open n8n
+2. Go to **Settings** → **Community Nodes**
+3. Click **Install a community node**
+4. Enter `n8n-nodes-aptos`
+5. Click **Install**
 
 ### Manual Installation
 
 ```bash
+cd ~/.n8n
 npm install n8n-nodes-aptos
 ```
 
 ### Development Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/Velocity-BPA/n8n-nodes-aptos.git
 cd n8n-nodes-aptos
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
-
-# Link to n8n custom nodes
 mkdir -p ~/.n8n/custom
 ln -s $(pwd) ~/.n8n/custom/n8n-nodes-aptos
-
-# Restart n8n
 n8n start
 ```
 
 ## Credentials Setup
 
-### Aptos Network Credentials
-
-| Field | Description |
-|-------|-------------|
-| Network | Select mainnet, testnet, devnet, or custom |
-| Authentication Method | Private key, mnemonic, or none (read-only) |
-| Private Key | Hex-encoded ED25519 private key |
-| Mnemonic Phrase | BIP-39 mnemonic (12 or 24 words) |
-| Derivation Path | BIP-44 path (default: m/44'/637'/0'/0'/0') |
-
-### Aptos Faucet Credentials (Testnet/Devnet)
-
-| Field | Description |
-|-------|-------------|
-| Network | Select testnet or devnet |
-| Auth Token | Optional authentication token |
+| Field | Description | Required |
+|-------|-------------|----------|
+| API Key | Your Aptos API key for authenticated requests | No |
+| Network | Target network (mainnet, testnet, devnet) | Yes |
+| Base URL | Custom RPC endpoint URL (optional) | No |
 
 ## Resources & Operations
 
-### Account Resource
-- Get Account - Retrieve account information
-- Get Account Balance - Get APT balance
-- Get Account Resources - List all resources
-- Get Account Resource - Get specific resource
-- Get Account Modules - List published modules
-- Get Account Transactions - Transaction history
-- Get Sequence Number - Current nonce
-- Check Account Exists - Verify on-chain existence
-- Validate Address - Check address format
-- Create Account - Generate new keypair
-- Derive Account - Derive from mnemonic
+### 1. Accounts
 
-### Transaction Resource
-- Submit Transaction - Execute on-chain transaction
-- Simulate Transaction - Dry-run without submitting
-- Estimate Gas - Calculate gas requirements
-- Get Transaction (by Hash) - Lookup by hash
-- Get Transaction (by Version) - Lookup by version
-- Get Account Transactions - List by account
-- Wait for Transaction - Poll until confirmed
+| Operation | Description |
+|-----------|-------------|
+| Get Account | Retrieve account information by address |
+| Get Account Resources | List all resources owned by an account |
+| Get Account Resource | Get a specific resource from an account |
+| Get Account Modules | List all modules published by an account |
+| Get Account Module | Get a specific module from an account |
+| Get Account Transactions | Get transaction history for an account |
 
-### Transfer Resource
-- Transfer APT - Send native tokens
-- Transfer Coin - Send any coin type
-- Check Balance Sufficient - Verify funds
-- Estimate Transfer Fee - Calculate gas cost
-- Get Coin Store - Query coin storage
-- Register Coin - Enable coin type
+### 2. Transactions
 
-### Coin Resource
-- Get Coin Balance - Query balance
-- Get Coin Info - Coin metadata
-- Get Coin Supply - Total supply
-- Check Coin Exists - Verify coin type
-- Register Coin - Enable for account
-- Transfer Coin - Send tokens
+| Operation | Description |
+|-----------|-------------|
+| Get Transaction | Retrieve transaction details by hash |
+| Get Transactions | List recent transactions with pagination |
+| Submit Transaction | Submit a signed transaction to the network |
+| Simulate Transaction | Simulate transaction execution without submitting |
+| Get Transaction by Version | Get transaction by ledger version |
+| Batch Get Transactions | Retrieve multiple transactions by hash |
 
-### Block Resource
-- Get Block by Height - Fetch by height
-- Get Block by Version - Fetch by version
-- Get Latest Block - Current head
-- Get Epoch Info - Epoch details
+### 3. Blocks
 
-### Utility Resource
-- Convert to Octas - APT → octas
-- Convert from Octas - octas → APT
-- Generate Account - New keypair
-- Get Chain ID - Network identifier
-- Get Ledger Info - Chain state
-- Get Node Info - Node details
-- Health Check - Connectivity test
-- Validate Address - Format check
+| Operation | Description |
+|-----------|-------------|
+| Get Block by Height | Retrieve block information by height |
+| Get Block by Version | Get block by ledger version |
+| Get Latest Block | Get the most recent block |
+| Get Block Transactions | List all transactions in a block |
 
-### Faucet Resource (Testnet/Devnet)
-- Fund Account - Request test APT
-- Check Faucet Status - Verify availability
+### 4. Coins
 
-## Trigger Node
+| Operation | Description |
+|-----------|-------------|
+| Get Account Coins | Get all coin balances for an account |
+| Get Coin Balance | Get balance of a specific coin type |
+| Get Coin Activities | Get coin transfer activities |
+| Get Coin Info | Retrieve coin metadata and information |
 
-The Aptos Trigger node polls for blockchain events:
+### 5. Events
 
-- **New Block** - Trigger on new blocks
-- **New Epoch** - Trigger on epoch changes
-- **Balance Changed** - Monitor account balance
-- **Transaction Confirmed** - Wait for confirmation
+| Operation | Description |
+|-----------|-------------|
+| Get Events by Event Handle | Query events by event handle |
+| Get Events by Creation Number | Get events by account and creation number |
+| Get Account Events | List all events for an account |
+| Stream Events | Subscribe to real-time event stream |
+
+### 6. LedgerInfo
+
+| Operation | Description |
+|-----------|-------------|
+| Get Ledger Info | Get current ledger state and version |
+| Get Node Health | Check node health and status |
+| Get Network Config | Retrieve network configuration |
+| Get Gas Estimation | Get current gas price estimates |
 
 ## Usage Examples
 
-### Transfer APT
-
-```json
+```javascript
+// Get account information
 {
-  "resource": "transfer",
-  "operation": "transferApt",
-  "recipientAddress": "0x123...",
-  "amountApt": 1.5
+  "resource": "accounts",
+  "operation": "getAccount",
+  "address": "0x1"
 }
 ```
 
-### Get Account Balance
-
-```json
+```javascript
+// Query recent transactions
 {
-  "resource": "account",
-  "operation": "getBalance",
-  "address": "0x123..."
+  "resource": "transactions", 
+  "operation": "getTransactions",
+  "limit": 25,
+  "start": 1000000
 }
 ```
 
-### Submit Transaction
-
-```json
+```javascript
+// Get coin balances for an account
 {
-  "resource": "transaction",
-  "operation": "submit",
-  "function": "0x1::aptos_account::transfer",
-  "typeArguments": "",
-  "functionArguments": "[\"0x456...\", \"100000000\"]"
+  "resource": "coins",
+  "operation": "getAccountCoins", 
+  "address": "0xa61e1e86e9f596e099283c26b07bbff59a2e78181f9d0c38bfe6b67d2a0de0f2",
+  "limit": 100
 }
 ```
 
-### Fund Test Account
-
-```json
+```javascript
+// Stream events by event handle
 {
-  "resource": "faucet",
-  "operation": "fundAccount",
-  "address": "0x123...",
-  "amount": 100000000
+  "resource": "events",
+  "operation": "getEventsByEventHandle",
+  "address": "0x1",
+  "eventHandle": "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
+  "fieldName": "withdraw_events"
 }
 ```
-
-## Aptos Concepts
-
-| Term | Description |
-|------|-------------|
-| APT | Native token of Aptos |
-| Octas | Smallest unit (10^-8 APT) |
-| Move | Smart contract language |
-| Module | Published Move code |
-| Resource | Account-stored data |
-| Entry Function | Callable Move function |
-| View Function | Read-only function |
-| Sequence Number | Account transaction nonce |
-| Gas Unit Price | Transaction fee pricing |
-| Epoch | Staking/consensus period |
-
-## Networks
-
-| Network | Chain ID | Description |
-|---------|----------|-------------|
-| Mainnet | 1 | Production network |
-| Testnet | 2 | Persistent test network |
-| Devnet | Variable | Development network (resets) |
 
 ## Error Handling
 
-The node provides detailed error messages including:
-- Invalid address format errors
-- Insufficient balance errors
-- Transaction simulation failures
-- Network connectivity issues
-- Authentication errors
-
-## Security Best Practices
-
-1. **Never share private keys** - Store securely in n8n credentials
-2. **Use testnet first** - Test workflows before mainnet
-3. **Validate addresses** - Use the validateAddress operation
-4. **Estimate gas** - Check costs before submitting
-5. **Monitor balances** - Ensure sufficient funds
+| Error | Description | Solution |
+|-------|-------------|----------|
+| Invalid Address | Account address format is incorrect | Ensure address starts with 0x and is 64 characters |
+| Transaction Not Found | Transaction hash doesn't exist | Verify transaction hash and network selection |
+| Insufficient Gas | Transaction gas limit too low | Increase gas limit or check gas estimation |
+| Network Timeout | Request timed out | Check network connectivity and try again |
+| Rate Limited | Too many requests to API | Implement request throttling or upgrade API plan |
+| Invalid Resource Type | Resource type doesn't exist | Verify resource type format and account ownership |
 
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Build
 npm run build
-
-# Run tests
 npm test
-
-# Lint
 npm run lint
-
-# Format
-npm run format
+npm run dev
 ```
 
 ## Author
@@ -270,30 +202,24 @@ This n8n community node is licensed under the **Business Source License 1.1**.
 Permitted for personal, educational, research, and internal business use.
 
 ### Commercial Use
-Use of this node within any SaaS, PaaS, hosted platform, managed service,
-or paid automation offering requires a commercial license.
+Use of this node within any SaaS, PaaS, hosted platform, managed service, or paid automation offering requires a commercial license.
 
-For licensing inquiries:
-**licensing@velobpa.com**
+For licensing inquiries: **licensing@velobpa.com**
 
 See [LICENSE](LICENSE), [COMMERCIAL_LICENSE.md](COMMERCIAL_LICENSE.md), and [LICENSING_FAQ.md](LICENSING_FAQ.md) for details.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests: `npm test`
-5. Submit a pull request
+Contributions are welcome! Please ensure:
+
+1. Code follows existing style conventions
+2. All tests pass (`npm test`)
+3. Linting passes (`npm run lint`)
+4. Documentation is updated for new features
+5. Commit messages are descriptive
 
 ## Support
 
-- [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-aptos/issues)
-- [Aptos Documentation](https://aptos.dev)
-- [n8n Community](https://community.n8n.io)
-
-## Acknowledgments
-
-- [Aptos Labs](https://aptoslabs.com) - Aptos blockchain
-- [n8n](https://n8n.io) - Workflow automation platform
-- [@aptos-labs/ts-sdk](https://github.com/aptos-labs/aptos-ts-sdk) - Official TypeScript SDK
+- **Issues**: [GitHub Issues](https://github.com/Velocity-BPA/n8n-nodes-aptos/issues)
+- **Aptos Documentation**: [Aptos Developer Docs](https://aptos.dev/)
+- **Aptos Community**: [Aptos Discord](https://discord.gg/aptosnetwork)
