@@ -41,7 +41,6 @@ export class Aptos implements INodeType {
       },
     ],
     properties: [
-      // Resource selector
       {
         displayName: 'Resource',
         name: 'resource',
@@ -49,70 +48,137 @@ export class Aptos implements INodeType {
         noDataExpression: true,
         options: [
           {
-            name: 'Accounts',
-            value: 'accounts',
+            name: 'Account',
+            value: 'account',
           },
           {
-            name: 'Transactions',
-            value: 'transactions',
+            name: 'Transaction',
+            value: 'transaction',
           },
           {
-            name: 'Blocks',
-            value: 'blocks',
+            name: 'Block',
+            value: 'block',
+          },
+          {
+            name: 'Ledger',
+            value: 'ledger',
+          },
+          {
+            name: 'Event',
+            value: 'event',
+          },
+          {
+            name: 'Table',
+            value: 'table',
           },
           {
             name: 'Coins',
             value: 'coins',
-          },
-          {
-            name: 'Events',
-            value: 'events',
-          },
-          {
-            name: 'LedgerInfo',
-            value: 'ledgerInfo',
           }
         ],
-        default: 'accounts',
+        default: 'account',
       },
-      // Operation dropdowns per resource
 {
-  displayName: 'Operation',
-  name: 'operation',
-  type: 'options',
-  noDataExpression: true,
-  displayOptions: {
-    show: {
-      resource: ['accounts'],
-    },
-  },
-  options: [
-    {
-      name: 'Get Account',
-      value: 'getAccount',
-      description: 'Get account data by address',
-      action: 'Get account data',
-    },
-    {
-      name: 'Get Account Resources',
-      value: 'getAccountResources',
-      description: 'Get account resources',
-      action: 'Get account resources',
-    },
-    {
-      name: 'Get Account Modules',
-      value: 'getAccountModules',
-      description: 'Get account modules',
-      action: 'Get account modules',
-    },
-    {
-      name: 'Get Account Resource',
-      value: 'getAccountResource',
-      description: 'Get specific account resource',
-      action: 'Get specific account resource',
-    },
-  ],
-  default: 'getAccount',
+	displayName: 'Operation',
+	name: 'operation',
+	type: 'options',
+	noDataExpression: true,
+	displayOptions: {
+		show: {
+			resource: ['account'],
+		},
+	},
+	options: [
+		{
+			name: 'Get Account',
+			value: 'getAccount',
+			description: 'Get account data including sequence number and authentication key',
+			action: 'Get account data',
+		},
+		{
+			name: 'Get Account Resources',
+			value: 'getAccountResources',
+			description: 'Get all resources stored under an account',
+			action: 'Get account resources',
+		},
+		{
+			name: 'Get Account Resource',
+			value: 'getAccountResource',
+			description: 'Get a specific resource from an account',
+			action: 'Get specific account resource',
+		},
+		{
+			name: 'Get Account Modules',
+			value: 'getAccountModules',
+			description: 'Get all modules published by an account',
+			action: 'Get account modules',
+		},
+		{
+			name: 'Get Account Module',
+			value: 'getAccountModule',
+			description: 'Get a specific module published by an account',
+			action: 'Get specific account module',
+		},
+	],
+	default: 'getAccount',
+},
+{
+	displayName: 'Operation',
+	name: 'operation',
+	type: 'options',
+	noDataExpression: true,
+	displayOptions: { show: { resource: ['transaction'] } },
+	options: [
+		{
+			name: 'Get Transactions',
+			value: 'getTransactions',
+			description: 'Get list of transactions',
+			action: 'Get list of transactions',
+		},
+		{
+			name: 'Get Transaction',
+			value: 'getTransaction',
+			description: 'Get transaction by hash or version',
+			action: 'Get transaction by hash or version',
+		},
+		{
+			name: 'Submit Transaction',
+			value: 'submitTransaction',
+			description: 'Submit a signed transaction',
+			action: 'Submit a signed transaction',
+		},
+		{
+			name: 'Simulate Transaction',
+			value: 'simulateTransaction',
+			description: 'Simulate a transaction without submitting',
+			action: 'Simulate a transaction',
+		},
+		{
+			name: 'Get Transaction By Hash',
+			value: 'getTransactionByHash',
+			description: 'Get transaction by hash',
+			action: 'Get transaction by hash',
+		},
+		{
+			name: 'Get Transaction By Version',
+			value: 'getTransactionByVersion',
+			description: 'Get transaction by version',
+			action: 'Get transaction by version',
+		},
+		{
+			name: 'Submit Batch Transactions',
+			value: 'submitBatchTransactions',
+			description: 'Submit multiple transactions',
+			action: 'Submit multiple transactions',
+		},
+		{
+			name: 'Get Account Transactions',
+			value: 'getAccountTransactions',
+			description: 'Get transactions for specific account',
+			action: 'Get account transactions',
+		},
+	],
+	default: 'getTransactions',
 },
 {
   displayName: 'Operation',
@@ -121,74 +187,95 @@ export class Aptos implements INodeType {
   noDataExpression: true,
   displayOptions: {
     show: {
-      resource: ['transactions'],
-    },
-  },
-  options: [
-    {
-      name: 'Submit Transaction',
-      value: 'submitTransaction',
-      description: 'Submit a signed transaction',
-      action: 'Submit transaction',
-    },
-    {
-      name: 'Get Transactions',
-      value: 'getTransactions',
-      description: 'Get list of transactions',
-      action: 'Get transactions',
-    },
-    {
-      name: 'Get Transaction',
-      value: 'getTransaction',
-      description: 'Get transaction by hash or version',
-      action: 'Get transaction',
-    },
-    {
-      name: 'Simulate Transaction',
-      value: 'simulateTransaction',
-      description: 'Simulate transaction execution',
-      action: 'Simulate transaction',
-    },
-    {
-      name: 'Submit Batch Transactions',
-      value: 'submitBatchTransactions',
-      description: 'Submit multiple transactions',
-      action: 'Submit batch transactions',
-    },
-    {
-      name: 'Get Account Transactions',
-      value: 'getAccountTransactions',
-      description: 'Get transactions for specific account',
-      action: 'Get account transactions',
-    },
-  ],
-  default: 'submitTransaction',
-},
-{
-  displayName: 'Operation',
-  name: 'operation',
-  type: 'options',
-  noDataExpression: true,
-  displayOptions: {
-    show: {
-      resource: ['blocks'],
+      resource: ['block'],
     },
   },
   options: [
     {
       name: 'Get Block by Height',
       value: 'getBlockByHeight',
-      description: 'Get block information by block height',
+      description: 'Get block information by height',
       action: 'Get block by height',
     },
     {
       name: 'Get Block by Version',
       value: 'getBlockByVersion',
-      description: 'Get block information by version number',
+      description: 'Get block information by version',
       action: 'Get block by version',
     },
   ],
   default: 'getBlockByHeight',
+},
+{
+  displayName: 'Operation',
+  name: 'operation',
+  type: 'options',
+  noDataExpression: true,
+  displayOptions: { show: { resource: ['ledger'] } },
+  options: [
+    { name: 'Get Ledger Info', value: 'getLedgerInfo', description: 'Get the latest ledger information', action: 'Get ledger info' },
+    { name: 'Get Spec', value: 'getSpec', description: 'Get OpenAPI specification', action: 'Get spec' },
+    { name: 'Estimate Gas Price', value: 'estimateGasPrice', description: 'Get current gas price estimate', action: 'Estimate gas price' }
+  ],
+  default: 'getLedgerInfo',
+},
+{
+  displayName: 'Operation',
+  name: 'operation',
+  type: 'options',
+  noDataExpression: true,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+    },
+  },
+  options: [
+    {
+      name: 'Get Account Events',
+      value: 'getAccountEvents',
+      description: 'Get events by account and creation number',
+      action: 'Get account events',
+    },
+    {
+      name: 'Get Events by Event Handle',
+      value: 'getEventsByEventHandle',
+      description: 'Get events by event handle',
+      action: 'Get events by event handle',
+    },
+    {
+      name: 'Get Events By Key',
+      value: 'getEventsByKey',
+      description: 'Get events by event key',
+      action: 'Get events by key',
+    },
+  ],
+  default: 'getAccountEvents',
+},
+{
+	displayName: 'Operation',
+	name: 'operation',
+	type: 'options',
+	noDataExpression: true,
+	displayOptions: {
+		show: {
+			resource: ['table'],
+		},
+	},
+	options: [
+		{
+			name: 'Get Table Item',
+			value: 'getTableItem',
+			description: 'Get table item by handle and key',
+			action: 'Get table item',
+		},
+		{
+			name: 'Get Raw Table Item',
+			value: 'getRawTableItem',
+			description: 'Get raw table item',
+			action: 'Get raw table item',
+		},
+	],
+	default: 'getTableItem',
 },
 {
   displayName: 'Operation',
@@ -229,240 +316,234 @@ export class Aptos implements INodeType {
   default: 'encodeCoinTransfer',
 },
 {
-  displayName: 'Operation',
-  name: 'operation',
-  type: 'options',
-  noDataExpression: true,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-    },
-  },
-  options: [
-    {
-      name: 'Get Account Events',
-      value: 'getAccountEvents',
-      description: 'Get events by account and event handle',
-      action: 'Get account events',
-    },
-    {
-      name: 'Get Events By Key',
-      value: 'getEventsByKey',
-      description: 'Get events by event key',
-      action: 'Get events by key',
-    },
-  ],
-  default: 'getAccountEvents',
+	displayName: 'Address',
+	name: 'address',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['account'],
+			operation: ['getAccount', 'getAccountResources', 'getAccountResource', 'getAccountModules', 'getAccountModule'],
+		},
+	},
+	default: '',
+	description: 'The account address',
 },
 {
-  displayName: 'Operation',
-  name: 'operation',
-  type: 'options',
-  noDataExpression: true,
-  displayOptions: {
-    show: {
-      resource: ['ledgerInfo'],
-    },
-  },
-  options: [
-    {
-      name: 'Get Ledger Info',
-      value: 'getLedgerInfo',
-      description: 'Get current ledger information',
-      action: 'Get ledger info',
-    },
-    {
-      name: 'Estimate Gas Price',
-      value: 'estimateGasPrice',
-      description: 'Get current gas price estimate',
-      action: 'Estimate gas price',
-    },
-  ],
-  default: 'getLedgerInfo',
-},
-      // Parameter definitions
-{
-  displayName: 'Address',
-  name: 'address',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['accounts'],
-      operation: ['getAccount', 'getAccountResources', 'getAccountModules', 'getAccountResource'],
-    },
-  },
-  default: '',
-  description: 'The account address',
+	displayName: 'Resource Type',
+	name: 'resourceType',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['account'],
+			operation: ['getAccountResource'],
+		},
+	},
+	default: '',
+	description: 'The resource type to retrieve',
 },
 {
-  displayName: 'Resource Type',
-  name: 'resourceType',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['accounts'],
-      operation: ['getAccountResource'],
-    },
-  },
-  default: '',
-  description: 'The specific resource type to retrieve',
+	displayName: 'Module Name',
+	name: 'moduleName',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['account'],
+			operation: ['getAccountModule'],
+		},
+	},
+	default: '',
+	description: 'The module name to retrieve',
 },
 {
-  displayName: 'Ledger Version',
-  name: 'ledgerVersion',
-  type: 'number',
-  displayOptions: {
-    show: {
-      resource: ['accounts'],
-      operation: ['getAccountResources', 'getAccountModules', 'getAccountResource'],
-    },
-  },
-  default: '',
-  description: 'Ledger version to query for account resource',
+	displayName: 'Ledger Version',
+	name: 'ledgerVersion',
+	type: 'string',
+	displayOptions: {
+		show: {
+			resource: ['account'],
+			operation: ['getAccountResources', 'getAccountResource', 'getAccountModules', 'getAccountModule'],
+		},
+	},
+	default: '',
+	description: 'Ledger version to query at (optional)',
 },
 {
-  displayName: 'Start',
-  name: 'start',
-  type: 'string',
-  displayOptions: {
-    show: {
-      resource: ['accounts'],
-      operation: ['getAccountResources', 'getAccountModules'],
-    },
-  },
-  default: '',
-  description: 'Cursor specifying where to start for pagination',
+	displayName: 'Limit',
+	name: 'limit',
+	type: 'number',
+	displayOptions: {
+		show: {
+			resource: ['account'],
+			operation: ['getAccountResources', 'getAccountModules'],
+		},
+	},
+	default: 100,
+	description: 'Maximum number of items to return',
 },
 {
-  displayName: 'Limit',
-  name: 'limit',
-  type: 'number',
-  displayOptions: {
-    show: {
-      resource: ['accounts'],
-      operation: ['getAccountResources', 'getAccountModules'],
-    },
-  },
-  default: 25,
-  description: 'Max number of items to retrieve',
-  typeOptions: {
-    minValue: 1,
-    maxValue: 1000,
-  },
+	displayName: 'Start',
+	name: 'start',
+	type: 'string',
+	displayOptions: {
+		show: {
+			resource: ['account'],
+			operation: ['getAccountResources', 'getAccountModules'],
+		},
+	},
+	default: '',
+	description: 'Starting point for pagination',
 },
 {
-  displayName: 'Transaction Data',
-  name: 'transactionData',
-  type: 'json',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['submitTransaction'],
-    },
-  },
-  default: '{}',
-  description: 'The signed transaction data to submit',
+	displayName: 'Start',
+	name: 'start',
+	type: 'number',
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['getTransactions'],
+		},
+	},
+	default: 0,
+	description: 'Starting position for pagination',
 },
 {
-  displayName: 'Start',
-  name: 'start',
-  type: 'number',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['getTransactions'],
-    },
-  },
-  default: 0,
-  description: 'Start index for pagination',
+	displayName: 'Limit',
+	name: 'limit',
+	type: 'number',
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['getTransactions'],
+		},
+	},
+	default: 25,
+	description: 'Maximum number of transactions to return',
 },
 {
-  displayName: 'Limit',
-  name: 'limit',
-  type: 'number',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['getTransactions'],
-    },
-  },
-  default: 25,
-  description: 'Maximum number of transactions to return',
+	displayName: 'Transaction Hash or Version',
+	name: 'txnHashOrVersion',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['getTransaction'],
+		},
+	},
+	default: '',
+	description: 'Transaction hash or version number',
 },
 {
-  displayName: 'Transaction Hash or Version',
-  name: 'txnHashOrVersion',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['getTransaction'],
-    },
-  },
-  default: '',
-  description: 'Transaction hash or version number',
+	displayName: 'Transaction Data',
+	name: 'transactionData',
+	type: 'json',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['submitTransaction'],
+		},
+	},
+	default: '{}',
+	description: 'The signed transaction data to submit',
 },
 {
-  displayName: 'Transaction Data',
-  name: 'transactionData',
-  type: 'json',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['simulateTransaction'],
-    },
-  },
-  default: '{}',
-  description: 'The transaction data to simulate',
+	displayName: 'Transaction Data',
+	name: 'transactionData',
+	type: 'json',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['simulateTransaction'],
+		},
+	},
+	default: '{}',
+	description: 'The transaction data to simulate',
 },
 {
-  displayName: 'Estimate Gas Unit Price',
-  name: 'estimateGasUnitPrice',
-  type: 'boolean',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['simulateTransaction'],
-    },
-  },
-  default: false,
-  description: 'Whether to estimate gas unit price',
+	displayName: 'Estimate Gas Unit Price',
+	name: 'estimateGasUnitPrice',
+	type: 'boolean',
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['simulateTransaction'],
+		},
+	},
+	default: false,
+	description: 'Whether to estimate the gas unit price',
 },
 {
-  displayName: 'Estimate Max Gas Amount',
-  name: 'estimateMaxGasAmount',
-  type: 'boolean',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['simulateTransaction'],
-    },
-  },
-  default: false,
-  description: 'Whether to estimate maximum gas amount',
+	displayName: 'Estimate Max Gas Amount',
+	name: 'estimateMaxGasAmount',
+	type: 'boolean',
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['simulateTransaction'],
+		},
+	},
+	default: false,
+	description: 'Whether to estimate the maximum gas amount',
 },
 {
-  displayName: 'Transactions Array',
-  name: 'transactionsArray',
-  type: 'json',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['transactions'],
-      operation: ['submitBatchTransactions'],
-    },
-  },
-  default: '[]',
-  description: 'Array of signed transactions to submit',
+	displayName: 'Estimate Prioritized Gas Unit Price',
+	name: 'estimatePrioritizedGasUnitPrice',
+	type: 'boolean',
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['simulateTransaction'],
+		},
+	},
+	default: false,
+	description: 'Whether to estimate the prioritized gas unit price',
+},
+{
+	displayName: 'Transaction Hash',
+	name: 'txnHash',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['getTransactionByHash'],
+		},
+	},
+	default: '',
+	description: 'The transaction hash to lookup',
+},
+{
+	displayName: 'Transaction Version',
+	name: 'txnVersion',
+	type: 'number',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['getTransactionByVersion'],
+		},
+	},
+	default: 0,
+	description: 'The transaction version to lookup',
+},
+{
+	displayName: 'Transactions Data',
+	name: 'transactionsData',
+	type: 'json',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['transaction'],
+			operation: ['submitBatchTransactions'],
+		},
+	},
+	default: '[]',
+	description: 'Array of signed transaction data to submit',
 },
 {
   displayName: 'Account Address',
@@ -471,7 +552,7 @@ export class Aptos implements INodeType {
   required: true,
   displayOptions: {
     show: {
-      resource: ['transactions'],
+      resource: ['transaction'],
       operation: ['getAccountTransactions'],
     },
   },
@@ -485,7 +566,7 @@ export class Aptos implements INodeType {
   required: false,
   displayOptions: {
     show: {
-      resource: ['transactions'],
+      resource: ['transaction'],
       operation: ['getAccountTransactions'],
     },
   },
@@ -499,7 +580,7 @@ export class Aptos implements INodeType {
   required: false,
   displayOptions: {
     show: {
-      resource: ['transactions'],
+      resource: ['transaction'],
       operation: ['getAccountTransactions'],
     },
   },
@@ -513,20 +594,20 @@ export class Aptos implements INodeType {
   required: true,
   displayOptions: {
     show: {
-      resource: ['blocks'],
+      resource: ['block'],
       operation: ['getBlockByHeight'],
     },
   },
   default: 0,
-  description: 'The block height to retrieve',
+  description: 'The height of the block to retrieve',
 },
 {
-  displayName: 'Include Transactions',
+  displayName: 'With Transactions',
   name: 'withTransactions',
   type: 'boolean',
   displayOptions: {
     show: {
-      resource: ['blocks'],
+      resource: ['block'],
       operation: ['getBlockByHeight'],
     },
   },
@@ -540,25 +621,218 @@ export class Aptos implements INodeType {
   required: true,
   displayOptions: {
     show: {
-      resource: ['blocks'],
+      resource: ['block'],
       operation: ['getBlockByVersion'],
     },
   },
   default: 0,
-  description: 'The version number to retrieve the block for',
+  description: 'The version of the block to retrieve',
 },
 {
-  displayName: 'Include Transactions',
+  displayName: 'With Transactions',
   name: 'withTransactions',
   type: 'boolean',
   displayOptions: {
     show: {
-      resource: ['blocks'],
+      resource: ['block'],
       operation: ['getBlockByVersion'],
     },
   },
   default: false,
   description: 'Whether to include transactions in the response',
+},
+{
+  displayName: 'Address',
+  name: 'address',
+  type: 'string',
+  required: true,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getAccountEvents', 'getEventsByEventHandle'],
+    },
+  },
+  default: '',
+  description: 'The account address',
+},
+{
+  displayName: 'Creation Number',
+  name: 'creation_number',
+  type: 'string',
+  required: true,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getAccountEvents'],
+    },
+  },
+  default: '',
+  description: 'The creation number for the event',
+},
+{
+  displayName: 'Event Handle',
+  name: 'event_handle',
+  type: 'string',
+  required: true,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getEventsByEventHandle'],
+    },
+  },
+  default: '',
+  description: 'The event handle identifier',
+},
+{
+  displayName: 'Field Name',
+  name: 'field_name',
+  type: 'string',
+  required: true,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getEventsByEventHandle'],
+    },
+  },
+  default: '',
+  description: 'The field name for the event handle',
+},
+{
+  displayName: 'Start',
+  name: 'start',
+  type: 'number',
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getAccountEvents', 'getEventsByEventHandle'],
+    },
+  },
+  default: 0,
+  description: 'The starting sequence number for pagination',
+},
+{
+  displayName: 'Limit',
+  name: 'limit',
+  type: 'number',
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getAccountEvents', 'getEventsByEventHandle'],
+    },
+  },
+  default: 25,
+  description: 'The maximum number of events to return',
+},
+{
+  displayName: 'Event Key',
+  name: 'event_key',
+  type: 'string',
+  required: true,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getEventsByKey'],
+    },
+  },
+  default: '',
+  description: 'The event key',
+},
+{
+  displayName: 'Start',
+  name: 'start',
+  type: 'number',
+  required: false,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getEventsByKey'],
+    },
+  },
+  default: 0,
+  description: 'Start position for pagination',
+},
+{
+  displayName: 'Limit',
+  name: 'limit',
+  type: 'number',
+  required: false,
+  displayOptions: {
+    show: {
+      resource: ['event'],
+      operation: ['getEventsByKey'],
+    },
+  },
+  default: 25,
+  description: 'Maximum number of events to return',
+},
+{
+	displayName: 'Table Handle',
+	name: 'tableHandle',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['table'],
+			operation: ['getTableItem', 'getRawTableItem'],
+		},
+	},
+	default: '',
+	description: 'The handle of the table',
+},
+{
+	displayName: 'Key Type',
+	name: 'keyType',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['table'],
+			operation: ['getTableItem'],
+		},
+	},
+	default: '',
+	description: 'The type of the key',
+},
+{
+	displayName: 'Value Type',
+	name: 'valueType',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['table'],
+			operation: ['getTableItem'],
+		},
+	},
+	default: '',
+	description: 'The type of the value',
+},
+{
+	displayName: 'Key',
+	name: 'key',
+	type: 'string',
+	required: true,
+	displayOptions: {
+		show: {
+			resource: ['table'],
+			operation: ['getTableItem', 'getRawTableItem'],
+		},
+	},
+	default: '',
+	description: 'The key to look up in the table',
+},
+{
+	displayName: 'Ledger Version',
+	name: 'ledgerVersion',
+	type: 'string',
+	displayOptions: {
+		show: {
+			resource: ['table'],
+			operation: ['getTableItem', 'getRawTableItem'],
+		},
+	},
+	default: '',
+	description: 'Ledger version to get state of table at (optional)',
 },
 {
   displayName: 'Sender Address',
@@ -656,119 +930,6 @@ export class Aptos implements INodeType {
   default: 25,
   description: 'Maximum number of events to return',
 },
-{
-  displayName: 'Account Address',
-  name: 'address',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getAccountEvents'],
-    },
-  },
-  default: '',
-  description: 'The account address',
-},
-{
-  displayName: 'Event Handle',
-  name: 'event_handle',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getAccountEvents'],
-    },
-  },
-  default: '',
-  description: 'The event handle',
-},
-{
-  displayName: 'Field Name',
-  name: 'field_name',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getAccountEvents'],
-    },
-  },
-  default: '',
-  description: 'The field name',
-},
-{
-  displayName: 'Start',
-  name: 'start',
-  type: 'number',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getAccountEvents'],
-    },
-  },
-  default: 0,
-  description: 'Start position for pagination',
-},
-{
-  displayName: 'Limit',
-  name: 'limit',
-  type: 'number',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getAccountEvents'],
-    },
-  },
-  default: 25,
-  description: 'Maximum number of events to return',
-},
-{
-  displayName: 'Event Key',
-  name: 'event_key',
-  type: 'string',
-  required: true,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getEventsByKey'],
-    },
-  },
-  default: '',
-  description: 'The event key',
-},
-{
-  displayName: 'Start',
-  name: 'start',
-  type: 'number',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getEventsByKey'],
-    },
-  },
-  default: 0,
-  description: 'Start position for pagination',
-},
-{
-  displayName: 'Limit',
-  name: 'limit',
-  type: 'number',
-  required: false,
-  displayOptions: {
-    show: {
-      resource: ['events'],
-      operation: ['getEventsByKey'],
-    },
-  },
-  default: 25,
-  description: 'Maximum number of events to return',
-},
-// No additional parameters needed for this resource as both operations don't require parameters,
     ],
   };
 
@@ -777,18 +938,20 @@ export class Aptos implements INodeType {
     const resource = this.getNodeParameter('resource', 0) as string;
 
     switch (resource) {
-      case 'accounts':
-        return [await executeAccountsOperations.call(this, items)];
-      case 'transactions':
-        return [await executeTransactionsOperations.call(this, items)];
-      case 'blocks':
-        return [await executeBlocksOperations.call(this, items)];
+      case 'account':
+        return [await executeAccountOperations.call(this, items)];
+      case 'transaction':
+        return [await executeTransactionOperations.call(this, items)];
+      case 'block':
+        return [await executeBlockOperations.call(this, items)];
+      case 'ledger':
+        return [await executeLedgerOperations.call(this, items)];
+      case 'event':
+        return [await executeEventOperations.call(this, items)];
+      case 'table':
+        return [await executeTableOperations.call(this, items)];
       case 'coins':
         return [await executeCoinsOperations.call(this, items)];
-      case 'events':
-        return [await executeEventsOperations.call(this, items)];
-      case 'ledgerInfo':
-        return [await executeLedgerInfoOperations.call(this, items)];
       default:
         throw new NodeOperationError(this.getNode(), `The resource "${resource}" is not supported`);
     }
@@ -799,147 +962,193 @@ export class Aptos implements INodeType {
 // Resource Handler Functions
 // ============================================================
 
-async function executeAccountsOperations(
-  this: IExecuteFunctions,
-  items: INodeExecutionData[],
+async function executeAccountOperations(
+	this: IExecuteFunctions,
+	items: INodeExecutionData[],
 ): Promise<INodeExecutionData[]> {
-  const returnData: INodeExecutionData[] = [];
-  const operation = this.getNodeParameter('operation', 0) as string;
-  const credentials = await this.getCredentials('aptosApi') as any;
+	const returnData: INodeExecutionData[] = [];
+	const operation = this.getNodeParameter('operation', 0) as string;
+	const credentials = await this.getCredentials('aptosApi') as any;
 
-  for (let i = 0; i < items.length; i++) {
-    try {
-      let result: any;
+	for (let i = 0; i < items.length; i++) {
+		try {
+			let result: any;
 
-      switch (operation) {
-        case 'getAccount': {
-          const address = this.getNodeParameter('address', i) as string;
-          
-          const options: any = {
-            method: 'GET',
-            url: `${credentials.baseUrl}/accounts/${address}`,
-            headers: {
-              'Authorization': `Bearer ${credentials.token}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
+			switch (operation) {
+				case 'getAccount': {
+					const address = this.getNodeParameter('address', i) as string;
+					
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/accounts/${address}`,
+						headers: {
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
 
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
 
-        case 'getAccountResources': {
-          const address = this.getNodeParameter('address', i) as string;
-          const ledgerVersion = this.getNodeParameter('ledgerVersion', i, '') as string;
-          const start = this.getNodeParameter('start', i, '') as string;
-          const limit = this.getNodeParameter('limit', i, 25) as number;
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
 
-          const queryParams: string[] = [];
-          if (ledgerVersion) queryParams.push(`ledger_version=${ledgerVersion}`);
-          if (start) queryParams.push(`start=${start}`);
-          if (limit) queryParams.push(`limit=${limit}`);
-          
-          const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
+				case 'getAccountResources': {
+					const address = this.getNodeParameter('address', i) as string;
+					const ledgerVersion = this.getNodeParameter('ledgerVersion', i) as string;
+					const limit = this.getNodeParameter('limit', i) as number;
+					const start = this.getNodeParameter('start', i) as string;
 
-          const options: any = {
-            method: 'GET',
-            url: `${credentials.baseUrl}/accounts/${address}/resources${queryString}`,
-            headers: {
-              'Authorization': `Bearer ${credentials.token}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
+					const queryParams = new URLSearchParams();
+					if (ledgerVersion) queryParams.append('ledger_version', ledgerVersion);
+					if (limit) queryParams.append('limit', limit.toString());
+					if (start) queryParams.append('start', start);
 
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
+					const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
 
-        case 'getAccountModules': {
-          const address = this.getNodeParameter('address', i) as string;
-          const ledgerVersion = this.getNodeParameter('ledgerVersion', i, '') as string;
-          const start = this.getNodeParameter('start', i, '') as string;
-          const limit = this.getNodeParameter('limit', i, 25) as number;
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/accounts/${address}/resources${queryString}`,
+						headers: {
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
 
-          const queryParams: string[] = [];
-          if (ledgerVersion) queryParams.push(`ledger_version=${ledgerVersion}`);
-          if (start) queryParams.push(`start=${start}`);
-          if (limit) queryParams.push(`limit=${limit}`);
-          
-          const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
 
-          const options: any = {
-            method: 'GET',
-            url: `${credentials.baseUrl}/accounts/${address}/modules${queryString}`,
-            headers: {
-              'Authorization': `Bearer ${credentials.token}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
 
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
+				case 'getAccountResource': {
+					const address = this.getNodeParameter('address', i) as string;
+					const resourceType = this.getNodeParameter('resourceType', i) as string;
+					const ledgerVersion = this.getNodeParameter('ledgerVersion', i) as string;
 
-        case 'getAccountResource': {
-          const address = this.getNodeParameter('address', i) as string;
-          const resourceType = this.getNodeParameter('resourceType', i) as string;
-          const ledgerVersion = this.getNodeParameter('ledgerVersion', i, '') as string;
+					const queryParams = new URLSearchParams();
+					if (ledgerVersion) queryParams.append('ledger_version', ledgerVersion);
 
-          const queryParams: string[] = [];
-          if (ledgerVersion) queryParams.push(`ledger_version=${ledgerVersion}`);
-          
-          const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
+					const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
 
-          const options: any = {
-            method: 'GET',
-            url: `${credentials.baseUrl}/accounts/${address}/resource/${resourceType}${queryString}`,
-            headers: {
-              'Authorization': `Bearer ${credentials.token}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/accounts/${address}/resource/${resourceType}${queryString}`,
+						headers: {
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
 
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
 
-        default:
-          throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
-      }
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
 
-      returnData.push({ json: result, pairedItem: { item: i } });
-    } catch (error: any) {
-      if (this.continueOnFail()) {
-        returnData.push({ json: { error: error.message }, pairedItem: { item: i } });
-      } else {
-        if (error.httpCode) {
-          throw new NodeApiError(this.getNode(), error);
-        }
-        throw new NodeOperationError(this.getNode(), error.message);
-      }
-    }
-  }
+				case 'getAccountModules': {
+					const address = this.getNodeParameter('address', i) as string;
+					const ledgerVersion = this.getNodeParameter('ledgerVersion', i) as string;
+					const limit = this.getNodeParameter('limit', i) as number;
+					const start = this.getNodeParameter('start', i) as string;
 
-  return returnData;
+					const queryParams = new URLSearchParams();
+					if (ledgerVersion) queryParams.append('ledger_version', ledgerVersion);
+					if (limit) queryParams.append('limit', limit.toString());
+					if (start) queryParams.append('start', start);
+
+					const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/accounts/${address}/modules${queryString}`,
+						headers: {
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
+
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
+
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
+
+				case 'getAccountModule': {
+					const address = this.getNodeParameter('address', i) as string;
+					const moduleName = this.getNodeParameter('moduleName', i) as string;
+					const ledgerVersion = this.getNodeParameter('ledgerVersion', i) as string;
+
+					const queryParams = new URLSearchParams();
+					if (ledgerVersion) queryParams.append('ledger_version', ledgerVersion);
+
+					const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/accounts/${address}/module/${moduleName}${queryString}`,
+						headers: {
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
+
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
+
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
+
+				default:
+					throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+			}
+
+			returnData.push({
+				json: result,
+				pairedItem: { item: i },
+			});
+
+		} catch (error: any) {
+			if (this.continueOnFail()) {
+				returnData.push({
+					json: { error: error.message },
+					pairedItem: { item: i },
+				});
+			} else {
+				if (error.httpCode) {
+					throw new NodeApiError(this.getNode(), error);
+				}
+				throw new NodeOperationError(this.getNode(), error.message);
+			}
+		}
+	}
+
+	return returnData;
 }
 
-async function executeTransactionsOperations(
-  this: IExecuteFunctions,
-  items: INodeExecutionData[],
+async function executeTransactionOperations(
+	this: IExecuteFunctions,
+	items: INodeExecutionData[],
 ): Promise<INodeExecutionData[]> {
-  const returnData: INodeExecutionData[] = [];
-  const operation = this.getNodeParameter('operation', 0) as string;
-  const credentials = await this.getCredentials('aptosApi') as any;
+	const returnData: INodeExecutionData[] = [];
+	const operation = this.getNodeParameter('operation', 0) as string;
+	const credentials = await this.getCredentials('aptosApi') as any;
 
-  for (let i = 0; i < items.length; i++) {
-    try {
-      let result: any;
+	for (let i = 0; i < items.length; i++) {
+		try {
+			let result: any;
 
-      switch (operation) {
+			switch (operation) {
         case 'submitTransaction': {
           const transactionData = this.getNodeParameter('transactionData', i) as any;
           
@@ -1021,6 +1230,40 @@ async function executeTransactionsOperations(
           break;
         }
 
+				case 'getTransactionByHash': {
+					const txnHash = this.getNodeParameter('txnHash', i) as string;
+					
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/transactions/by_hash/${txnHash}`,
+						headers: {
+							'Authorization': `Bearer ${credentials.apiKey}`,
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
+					
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
+
+				case 'getTransactionByVersion': {
+					const txnVersion = this.getNodeParameter('txnVersion', i) as number;
+					
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/transactions/by_version/${txnVersion}`,
+						headers: {
+							'Authorization': `Bearer ${credentials.apiKey}`,
+							'Accept': 'application/json',
+						},
+						json: true,
+					};
+					
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
+
         case 'submitBatchTransactions': {
           const transactionsArray = this.getNodeParameter('transactionsArray', i) as any[];
 
@@ -1062,31 +1305,34 @@ async function executeTransactionsOperations(
           break;
         }
 
-        default:
-          throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
-      }
+				default:
+					throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+			}
 
-      returnData.push({ json: result, pairedItem: { item: i } });
-    } catch (error: any) {
-      if (this.continueOnFail()) {
-        returnData.push({
-          json: { error: error.message },
-          pairedItem: { item: i },
-        });
-      } else {
-        if (error.httpCode) {
-          throw new NodeApiError(this.getNode(), error);
-        } else {
-          throw new NodeOperationError(this.getNode(), error.message);
-        }
-      }
-    }
-  }
+			returnData.push({
+				json: result,
+				pairedItem: { item: i },
+			});
+		} catch (error: any) {
+			if (this.continueOnFail()) {
+				returnData.push({
+					json: { error: error.message },
+					pairedItem: { item: i },
+				});
+			} else {
+				if (error.httpCode) {
+					throw new NodeApiError(this.getNode(), error);
+				} else {
+					throw new NodeOperationError(this.getNode(), error.message);
+				}
+			}
+		}
+	}
 
-  return returnData;
+	return returnData;
 }
 
-async function executeBlocksOperations(
+async function executeBlockOperations(
   this: IExecuteFunctions,
   items: INodeExecutionData[],
 ): Promise<INodeExecutionData[]> {
@@ -1097,65 +1343,73 @@ async function executeBlocksOperations(
   for (let i = 0; i < items.length; i++) {
     try {
       let result: any;
-      
+
       switch (operation) {
         case 'getBlockByHeight': {
           const blockHeight = this.getNodeParameter('blockHeight', i) as number;
           const withTransactions = this.getNodeParameter('withTransactions', i, false) as boolean;
           
+          let url = `${credentials.baseUrl}/blocks/by_height/${blockHeight}`;
+          if (withTransactions) {
+            url += '?with_transactions=true';
+          }
+
           const options: any = {
             method: 'GET',
-            url: `${credentials.baseUrl}/blocks/by_height/${blockHeight}`,
+            url,
             headers: {
-              'Authorization': `Bearer ${credentials.bearerToken}`,
-              'Content-Type': 'application/json',
+              'Accept': 'application/json',
             },
-            qs: {},
             json: true,
           };
-          
-          if (withTransactions) {
-            options.qs.with_transactions = 'true';
+
+          if (credentials.apiKey) {
+            options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
           }
-          
+
           result = await this.helpers.httpRequest(options) as any;
           break;
         }
-        
+
         case 'getBlockByVersion': {
           const version = this.getNodeParameter('version', i) as number;
           const withTransactions = this.getNodeParameter('withTransactions', i, false) as boolean;
           
+          let url = `${credentials.baseUrl}/blocks/by_version/${version}`;
+          if (withTransactions) {
+            url += '?with_transactions=true';
+          }
+
           const options: any = {
             method: 'GET',
-            url: `${credentials.baseUrl}/blocks/by_version/${version}`,
+            url,
             headers: {
-              'Authorization': `Bearer ${credentials.bearerToken}`,
-              'Content-Type': 'application/json',
+              'Accept': 'application/json',
             },
-            qs: {},
             json: true,
           };
-          
-          if (withTransactions) {
-            options.qs.with_transactions = 'true';
+
+          if (credentials.apiKey) {
+            options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
           }
-          
+
           result = await this.helpers.httpRequest(options) as any;
           break;
         }
-        
+
         default:
           throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
       }
-      
-      returnData.push({ json: result, pairedItem: { item: i } });
-      
+
+      returnData.push({
+        json: result,
+        pairedItem: { item: i },
+      });
     } catch (error: any) {
       if (this.continueOnFail()) {
-        returnData.push({ 
-          json: { error: error.message }, 
-          pairedItem: { item: i } 
+        returnData.push({
+          json: { error: error.message },
+          pairedItem: { item: i },
         });
       } else {
         if (error.statusCode) {
@@ -1165,8 +1419,305 @@ async function executeBlocksOperations(
       }
     }
   }
-  
+
   return returnData;
+}
+
+async function executeLedgerOperations(
+  this: IExecuteFunctions,
+  items: INodeExecutionData[],
+): Promise<INodeExecutionData[]> {
+  const returnData: INodeExecutionData[] = [];
+  const operation = this.getNodeParameter('operation', 0) as string;
+  const credentials = await this.getCredentials('aptosApi') as any;
+
+  for (let i = 0; i < items.length; i++) {
+    try {
+      let result: any;
+
+      switch (operation) {
+        case 'getLedgerInfo': {
+          const options: any = {
+            method: 'GET',
+            url: `${credentials.baseUrl}/`,
+            headers: {
+              'Authorization': `Bearer ${credentials.apiKey}`,
+              'Accept': 'application/json'
+            },
+            json: true
+          };
+          result = await this.helpers.httpRequest(options) as any;
+          break;
+        }
+        case 'getSpec': {
+          const options: any = {
+            method: 'GET',
+            url: `${credentials.baseUrl}/spec`,
+            headers: {
+              'Authorization': `Bearer ${credentials.apiKey}`,
+              'Accept': 'application/json'
+            },
+            json: true
+          };
+          result = await this.helpers.httpRequest(options) as any;
+          break;
+        }
+        
+        case 'estimateGasPrice': {
+          const options: any = {
+            method: 'GET',
+            url: `${credentials.baseUrl}/estimate_gas_price`,
+            headers: {
+              'Authorization': `Bearer ${credentials.bearerToken}`,
+              'Content-Type': 'application/json',
+            },
+            json: true,
+          };
+          result = await this.helpers.httpRequest(options) as any;
+          break;
+        }
+        
+        default:
+          throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+      }
+
+      returnData.push({
+        json: result,
+        pairedItem: { item: i }
+      });
+    } catch (error: any) {
+      if (this.continueOnFail()) {
+        returnData.push({
+          json: { error: error.message },
+          pairedItem: { item: i }
+        });
+      } else {
+        throw new NodeApiError(this.getNode(), error, { itemIndex: i });
+      }
+    }
+  }
+
+  return returnData;
+}
+
+async function executeEventOperations(
+  this: IExecuteFunctions,
+  items: INodeExecutionData[],
+): Promise<INodeExecutionData[]> {
+  const returnData: INodeExecutionData[] = [];
+  const operation = this.getNodeParameter('operation', 0) as string;
+  const credentials = await this.getCredentials('aptosApi') as any;
+
+  for (let i = 0; i < items.length; i++) {
+    try {
+      let result: any;
+
+      switch (operation) {
+        case 'getAccountEvents': {
+          const address = this.getNodeParameter('address', i) as string;
+          const creationNumber = this.getNodeParameter('creation_number', i) as string;
+          const start = this.getNodeParameter('start', i) as number;
+          const limit = this.getNodeParameter('limit', i) as number;
+
+          const qs: any = {};
+          if (start !== undefined) qs.start = start;
+          if (limit !== undefined) qs.limit = limit;
+
+          const options: any = {
+            method: 'GET',
+            url: `${credentials.baseUrl}/accounts/${address}/events/${creationNumber}`,
+            headers: {
+              'Authorization': `Bearer ${credentials.apiKey}`,
+              'Accept': 'application/json',
+            },
+            qs,
+            json: true,
+          };
+
+          result = await this.helpers.httpRequest(options) as any;
+          break;
+        }
+
+        case 'getEventsByEventHandle': {
+          const address = this.getNodeParameter('address', i) as string;
+          const eventHandle = this.getNodeParameter('event_handle', i) as string;
+          const fieldName = this.getNodeParameter('field_name', i) as string;
+          const start = this.getNodeParameter('start', i) as number;
+          const limit = this.getNodeParameter('limit', i) as number;
+
+          const qs: any = {};
+          if (start !== undefined) qs.start = start;
+          if (limit !== undefined) qs.limit = limit;
+
+          const options: any = {
+            method: 'GET',
+            url: `${credentials.baseUrl}/accounts/${address}/events/${eventHandle}/${fieldName}`,
+            headers: {
+              'Authorization': `Bearer ${credentials.apiKey}`,
+              'Accept': 'application/json',
+            },
+            qs,
+            json: true,
+          };
+
+          result = await this.helpers.httpRequest(options) as any;
+          break;
+        }
+
+        case 'getEventsByKey': {
+          const eventKey = this.getNodeParameter('event_key', i) as string;
+          const start = this.getNodeParameter('start', i) as number;
+          const limit = this.getNodeParameter('limit', i) as number;
+
+          const queryParams = new URLSearchParams();
+          if (start !== undefined) queryParams.append('start', start.toString());
+          if (limit !== undefined) queryParams.append('limit', limit.toString());
+
+          const url = `${credentials.baseUrl}/events/${eventKey}${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
+
+          const options: any = {
+            method: 'GET',
+            url: url,
+            headers: {
+              'Authorization': `Bearer ${credentials.apiKey}`,
+              'Content-Type': 'application/json',
+            },
+            json: true,
+          };
+
+          result = await this.helpers.httpRequest(options) as any;
+          break;
+        }
+
+        default:
+          throw new NodeOperationError(
+            this.getNode(),
+            `Unknown operation: ${operation}`,
+            { itemIndex: i },
+          );
+      }
+
+      returnData.push({
+        json: result,
+        pairedItem: { item: i },
+      });
+    } catch (error: any) {
+      if (this.continueOnFail()) {
+        returnData.push({
+          json: { error: error.message },
+          pairedItem: { item: i },
+        });
+      } else {
+        if (error.httpCode) {
+          throw new NodeApiError(this.getNode(), error, { itemIndex: i });
+        }
+        throw new NodeOperationError(this.getNode(), error.message, { itemIndex: i });
+      }
+    }
+  }
+
+  return returnData;
+}
+
+async function executeTableOperations(
+	this: IExecuteFunctions,
+	items: INodeExecutionData[],
+): Promise<INodeExecutionData[]> {
+	const returnData: INodeExecutionData[] = [];
+	const operation = this.getNodeParameter('operation', 0) as string;
+	const credentials = await this.getCredentials('aptosApi') as any;
+
+	for (let i = 0; i < items.length; i++) {
+		try {
+			let result: any;
+
+			switch (operation) {
+				case 'getTableItem': {
+					const tableHandle = this.getNodeParameter('tableHandle', i) as string;
+					const keyType = this.getNodeParameter('keyType', i) as string;
+					const valueType = this.getNodeParameter('valueType', i) as string;
+					const key = this.getNodeParameter('key', i) as string;
+					const ledgerVersion = this.getNodeParameter('ledgerVersion', i) as string;
+
+					const requestBody: any = {
+						key_type: keyType,
+						value_type: valueType,
+						key: key,
+					};
+
+					const options: any = {
+						method: 'POST',
+						url: `${credentials.baseUrl}/tables/${tableHandle}/item`,
+						headers: {
+							'Content-Type': 'application/json',
+							'Accept': 'application/json',
+						},
+						body: JSON.stringify(requestBody),
+						json: true,
+					};
+
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
+
+					if (ledgerVersion) {
+						options.qs = { ledger_version: ledgerVersion };
+					}
+
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
+
+				case 'getRawTableItem': {
+					const tableHandle = this.getNodeParameter('tableHandle', i) as string;
+					const key = this.getNodeParameter('key', i) as string;
+					const ledgerVersion = this.getNodeParameter('ledgerVersion', i) as string;
+
+					const options: any = {
+						method: 'GET',
+						url: `${credentials.baseUrl}/tables/${tableHandle}/raw_item`,
+						headers: {
+							'Accept': 'application/json',
+						},
+						qs: {
+							key: key,
+						},
+						json: true,
+					};
+
+					if (credentials.apiKey) {
+						options.headers['Authorization'] = `Bearer ${credentials.apiKey}`;
+					}
+
+					if (ledgerVersion) {
+						options.qs.ledger_version = ledgerVersion;
+					}
+
+					result = await this.helpers.httpRequest(options) as any;
+					break;
+				}
+
+				default:
+					throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`);
+			}
+
+			returnData.push({
+				json: result,
+				pairedItem: { item: i },
+			});
+		} catch (error: any) {
+			if (this.continueOnFail()) {
+				returnData.push({
+					json: { error: error.message },
+					pairedItem: { item: i },
+				});
+			} else {
+				throw error;
+			}
+		}
+	}
+
+	return returnData;
 }
 
 async function executeCoinsOperations(
@@ -1303,166 +1854,5 @@ async function executeCoinsOperations(
     }
   }
 
-  return returnData;
-}
-
-async function executeEventsOperations(
-  this: IExecuteFunctions,
-  items: INodeExecutionData[],
-): Promise<INodeExecutionData[]> {
-  const returnData: INodeExecutionData[] = [];
-  const operation = this.getNodeParameter('operation', 0) as string;
-  const credentials = await this.getCredentials('aptosApi') as any;
-
-  for (let i = 0; i < items.length; i++) {
-    try {
-      let result: any;
-
-      switch (operation) {
-        case 'getAccountEvents': {
-          const address = this.getNodeParameter('address', i) as string;
-          const eventHandle = this.getNodeParameter('event_handle', i) as string;
-          const fieldName = this.getNodeParameter('field_name', i) as string;
-          const start = this.getNodeParameter('start', i) as number;
-          const limit = this.getNodeParameter('limit', i) as number;
-
-          const queryParams = new URLSearchParams();
-          if (start !== undefined) queryParams.append('start', start.toString());
-          if (limit !== undefined) queryParams.append('limit', limit.toString());
-
-          const url = `${credentials.baseUrl}/accounts/${address}/events/${eventHandle}/${fieldName}${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
-
-          const options: any = {
-            method: 'GET',
-            url: url,
-            headers: {
-              'Authorization': `Bearer ${credentials.apiKey}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
-
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
-
-        case 'getEventsByKey': {
-          const eventKey = this.getNodeParameter('event_key', i) as string;
-          const start = this.getNodeParameter('start', i) as number;
-          const limit = this.getNodeParameter('limit', i) as number;
-
-          const queryParams = new URLSearchParams();
-          if (start !== undefined) queryParams.append('start', start.toString());
-          if (limit !== undefined) queryParams.append('limit', limit.toString());
-
-          const url = `${credentials.baseUrl}/events/${eventKey}${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
-
-          const options: any = {
-            method: 'GET',
-            url: url,
-            headers: {
-              'Authorization': `Bearer ${credentials.apiKey}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
-
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
-
-        default:
-          throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`, {
-            itemIndex: i,
-          });
-      }
-
-      returnData.push({ 
-        json: result, 
-        pairedItem: { item: i } 
-      });
-
-    } catch (error: any) {
-      if (this.continueOnFail()) {
-        returnData.push({ 
-          json: { error: error.message }, 
-          pairedItem: { item: i } 
-        });
-      } else {
-        if (error.httpCode) {
-          throw new NodeApiError(this.getNode(), error, { itemIndex: i });
-        }
-        throw new NodeOperationError(this.getNode(), error.message, { itemIndex: i });
-      }
-    }
-  }
-
-  return returnData;
-}
-
-async function executeLedgerInfoOperations(
-  this: IExecuteFunctions,
-  items: INodeExecutionData[],
-): Promise<INodeExecutionData[]> {
-  const returnData: INodeExecutionData[] = [];
-  const operation = this.getNodeParameter('operation', 0) as string;
-  const credentials = await this.getCredentials('aptosApi') as any;
-
-  for (let i = 0; i < items.length; i++) {
-    try {
-      let result: any;
-      
-      switch (operation) {
-        case 'getLedgerInfo': {
-          const options: any = {
-            method: 'GET',
-            url: `${credentials.baseUrl}/`,
-            headers: {
-              'Authorization': `Bearer ${credentials.bearerToken}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
-        
-        case 'estimateGasPrice': {
-          const options: any = {
-            method: 'GET',
-            url: `${credentials.baseUrl}/estimate_gas_price`,
-            headers: {
-              'Authorization': `Bearer ${credentials.bearerToken}`,
-              'Content-Type': 'application/json',
-            },
-            json: true,
-          };
-          result = await this.helpers.httpRequest(options) as any;
-          break;
-        }
-        
-        default:
-          throw new NodeOperationError(this.getNode(), `Unknown operation: ${operation}`, {
-            itemIndex: i,
-          });
-      }
-      
-      returnData.push({
-        json: result,
-        pairedItem: { item: i },
-      });
-      
-    } catch (error: any) {
-      if (this.continueOnFail()) {
-        returnData.push({
-          json: { error: error.message },
-          pairedItem: { item: i },
-        });
-      } else {
-        throw new NodeApiError(this.getNode(), error, { itemIndex: i });
-      }
-    }
-  }
-  
   return returnData;
 }
